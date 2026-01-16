@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wedding Invitation</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    background: #5b0f14;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* ================= COVER ================= */
+.cover {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+    background: #5b0f14;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.envelope-wrap {
+    padding: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+}
+
+.envelope {
+    width: 640px;
+    max-width: 90vw;
+    mix-blend-mode: lighten;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.4));
+    animation: wiggle 3.5s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+    0%   { transform: rotate(0deg) translateY(0); }
+    50%  { transform: rotate(0deg) translateY(-12px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+.tap-hint {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* ================= INVITATION ================= */
+.invitation {
+    display: none;
+    min-height: 100vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    background: #f6f1ea;
+    color: #5a4632;
+}
+
+section {
+    min-height: 100vh;
+    padding: 120px 20px;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(#f6f1ea, #efe7dc);
+}
+
+/* 🌸 FIRST SECTION LAYOUT */
+section:first-of-type {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Decorative flowers */
+section::before,
+section::after {
+    content: "✿ ❀ ✾ ✿ ❀ ✾ ✿ ❀ ✾ ✿ ❀ ✾";
+    position: absolute;
+    color: rgba(150,120,90,0.25);
+    font-size: 28px;
+    letter-spacing: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+section::before { top: 20px; }
+section::after { bottom: 20px; }
+
+/* ================= TEXT ================= */
+/* Fade-in animation for names & Save the Date */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Save the Date */
+.save-date {
+    font-family: 'Alex Brush', cursive;
+    font-size: 60px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+    opacity: 0;
+}
+
+/* Date number below Save the Date */
+.save-date .date-number {
+    display: block;
+    font-size: 36px;
+    letter-spacing: 4px;
+    color: #fff;
+    margin-top: 5px;
+}
+
+/* Names centered in middle of screen */
+.names {
+    font-family: 'Alex Brush', cursive;
+    font-size: 150px;
+    margin: 0;
+    letter-spacing: 2px;
+    opacity: 0;
+}
+
+/* Countdown at bottom */
+section:first-of-type .countdown {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* ================= STITCHED MOVING IMAGES ================= */
+.moving-images-strip-container {
+    width: 100%;
+    overflow: hidden;
+    z-index: 5; /* behind names */
+    margin-top: 30px; /* space below names */
+}
+
+.moving-images-strip {
+    display: flex;
+    opacity: 0.5;
+    animation: moveStrip 20s linear infinite;
+}
+
+.moving-images-strip img {
+    height: 300px; /* doubled size */
+    flex-shrink: 0;
+    margin: 0;
+}
+
+@keyframes moveStrip {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); } 
+}
+
+/* ================= FALLING HEARTS LIKE LEAVES ================= */
+.falling {
+    position: absolute;
+    top: -10%;
+    font-size: 20px;
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 1;
+    animation: fallLeaf linear infinite;
+}
+
+@keyframes fallLeaf {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(120vh) translateX(80px) rotate(720deg); opacity: 0.7; }
+}
+
+/* Other text */
+h1 {
+    font-size: 42px;
+    margin-bottom: 28px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 18px;
+    max-width: 620px;
+    margin: auto;
+    line-height: 1.8;
+}
+
+.divider {
+    width: 80px;
+    height: 1px;
+    background: rgba(120,90,60,0.4);
+    margin: 40px auto;
+}
+
+/* Countdown styling */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.time-box {
+    background: #fff;
+    color: #5a4632;
+    padding: 20px 18px;
+    min-width: 90px;
+    border-radius: 6px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.time-box span {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.time-box label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    margin-top: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ================= COVER ================= -->
+<div class="cover" id="cover">
+    <div class="envelope-wrap">
+        <img src="envelope.png" class="envelope" alt="Envelope">
+    </div>
+    <div id="fallingSymbols"></div> <!-- hearts floating -->
+</div>
+
+<!-- ================= INVITATION ================= -->
+<div class="invitation" id="invitation">
+
+    <!-- FIRST SECTION -->
+    <section>
+        <!-- Save the Date -->
+        <div class="save-date" id="saveDate">
+            Save the Date
+            <span class="date-number">04 | 18 | 26</span>
+        </div>
+
+        <!-- Names -->
+        <div class="names" id="names">Chari &amp; Dooley</div>
+
+        <!-- Stitched moving images strip -->
+        <div class="moving-images-strip-container">
+            <div class="moving-images-strip">
+                <img src="pic1.jpg">
+                <img src="pic2.jpg">
+                <img src="pic3.jpg">
+                <img src="pic4.jpg">
+                <img src="pic5.jpg">
+                <img src="pic6.jpg">
+                <img src="pic1.jpg">
+                <img src="pic2.jpg">
+                <img src="pic3.jpg">
+                <img src="pic4.jpg">
+                <img src="pic5.jpg">
+                <img src="pic6.jpg">
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Countdown -->
+        <div class="countdown">
+            <div class="time-box">
+                <span id="days">0</span>
+                <label>DAYS</label>
+            </div>
+            <div class="time-box">
+                <span id="hours">0</span>
+                <label>HOURS</label>
+            </div>
+            <div class="time-box">
+                <span id="minutes">0</span>
+                <label>MINUTES</label>
+            </div>
+            <div class="time-box">
+                <span id="seconds">0</span>
+                <label>SECONDS</label>
+            </div>
+        </div>
+    </section>
+
+    <!-- OTHER SECTIONS -->
+    <section>
+        <h1>The Wedding Day</h1>
+        <div class="divider"></div>
+        <p>Date • Time • Venue</p>
+    </section>
+
+    <section>
+        <h1>With Love</h1>
+        <div class="divider"></div>
+        <p>We can’t wait to celebrate with you 🤍</p>
+    </section>
+
+</div>
+
+<script>
+/* OPEN INVITATION */
+const cover = document.getElementById("cover");
+const invitation = document.getElementById("invitation");
+const music = document.getElementById("bgMusic");
+const names = document.getElementById("names");
+const saveDate = document.getElementById("saveDate");
+
+cover.addEventListener("click", () => {
+    music.play().catch(() => {});
+    cover.style.opacity = "0";
+    setTimeout(() => {
+        cover.style.display = "none";
+        invitation.style.display = "block";
+        document.body.style.overflow = "auto";
+
+        // Animate names and Save the Date
+        names.style.animation = "fadeIn 2s ease-in-out forwards";
+        saveDate.style.animation = "fadeIn 2s ease-in-out forwards";
+    }, 800);
+});
+
+/* COUNTDOWN TIMER */
+const weddingDate = new Date("2026-04-18T13:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+
+    document.getElementById("days").innerText =
+        Math.max(Math.floor(diff / (1000 * 60 * 60 * 24)), 0);
+    document.getElementById("hours").innerText =
+        Math.max(Math.floor((diff / (1000 * 60 * 60)) % 24), 0);
+    document.getElementById("minutes").innerText =
+        Math.max(Math.floor((diff / (1000 * 60)) % 60), 0);
+    document.getElementById("seconds").innerText =
+        Math.max(Math.floor((diff / 1000) % 60), 0);
+}, 1000);
+
+/* ===== FALLING HEARTS LIKE LEAVES (COVER ONLY) ===== */
+const symbols = ["💗"]; // hearts only
+const fallingContainer = document.getElementById("fallingSymbols");
+
+let fallingInterval = setInterval(() => {
+    const item = document.createElement("div");
+    item.className = "falling";
+    item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+    // random horizontal start
+    const startX = Math.random() * 100;
+    item.style.left = startX + "vw";
+
+    // random font size
+    item.style.fontSize = (Math.random() * 14 + 16) + "px";
+
+    // random animation duration
+    const duration = Math.random() * 4 + 6; // 6s to 10s
+    item.style.animationDuration = duration + "s";
+
+    fallingContainer.appendChild(item);
+
+    setTimeout(() => item.remove(), duration * 1000);
+}, 350);
+</script>
+
+</body>
+</html>
